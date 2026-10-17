@@ -27,6 +27,9 @@ struct ImmersiveFireView: View {
                 model.statusMessage = nil
                 NSLog("FireOpus: effect ready")
                 await placement.place(fire.root)
+                if AutoTest.isEnabled {
+                    Task { await AutoTest.run(model: model, effect: fire) }
+                }
             } catch {
                 model.statusMessage = "Fire failed: \(error.localizedDescription)"
                 NSLog("FireOpus: effect build failed: \(error)")

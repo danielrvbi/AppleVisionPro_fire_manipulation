@@ -60,6 +60,8 @@ final class FireEffect {
     private var simTime: Float = 0
     private var scriptTime: Float = 0
     private var frame: UInt32 = 0
+    /// Frames rendered (advances while paused too; the simulation step is what pauses).
+    var frameCount: UInt32 { frame }
 
     // transition state
     private var previousMode: FireMode?
@@ -171,9 +173,11 @@ final class FireEffect {
             if transition < 1 { transition = min(1, transition + dt / transitionDuration) }
         }
         frame &+= 1
+        #if DEBUG
         if frame % 600 == 1 {
             NSLog("FireOpus: frame \(frame) mode \(mode.rawValue) intensity \(intensity) dt \(rawDt)")
         }
+        #endif
 
         // 1. Control points -> spine (blended across a mode transition)
         if !isPaused || lastSpine.isEmpty {
@@ -209,11 +213,17 @@ final class FireEffect {
             return ModeStyle.lerp(ModeStyle.style(for: prev), target, smoothstep(0, 1, transition))
         }()
 
+        // Ribbon/arc: keep particles-per-metre constant so a compressed spine doesn't blow out.
+        var spineLength: Float = 0
+        for i in 1..<max(lastSpine.count, 1) { spineLength += simd_distance(lastSpine[i].position, lastSpine[i - 1].position) }
+        let byLength = min(max(spineLength / 0.7, 0.3), 1)
+        let lengthFactor = 1 + (byLength - 1) * style.lengthNormalized
+
         guard let cb = gpu.queue.makeCommandBuffer() else { return }
         for kind in LayerKind.allCases {
             guard let layer = layers[kind] else { continue }
             var p = Self.params(for: kind, style: style)
-            let active = Float(layer.capacity) * min(1, style.density) * quality.particleFactor
+            let active = Float(layer.capacity) * min(1, style.density) * quality.particleFactor * lengthFactor
             p.time = SIMD4(simTime, stepDt, Float(frame), intensity * min(userIntensity, 1))
             p.counts.x = UInt32(active)
             p.heat.z *= max(userIntensity, 0)
@@ -283,7 +293,7 @@ final class FireEffect {
             p.range = flow
             p.extra2 = [style.cohesionDecay, 0, 0.034, 0.3]
         case .embers:
-            p.life = [1.0, 2.2, 1.5, 0.5]
+            p.life = [0.8, 1.7, 1.5, 0.5]
             p.size = [0.0022, 0.0018, 0.0010, 6.0]
             p.motion = [0.25, 1.2, 0.6, 4.5]
             p.motion2 = [0.5, style.cohesion * 0.15, style.inherit * 0.35, style.flowAlong]

@@ -17,6 +17,7 @@
 		71E01A61CAD3705580C2BA5A /* ScriptedChoreography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE47D7D5065C16809B4CF6F /* ScriptedChoreography.swift */; };
 		7E245B49883FDBE0DEF4E54A /* ShaderGraphBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDB227212B8AEB4510B893A /* ShaderGraphBuilder.swift */; };
 		8D82D16470D875CA3F5737A7 /* ImmersiveFireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EFFDFDCDD469FDF91F679 /* ImmersiveFireView.swift */; };
+		960378DAD559DBBFD8202E5E /* AutoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C321ADB4DF1FB181ADB80ED /* AutoTest.swift */; };
 		A5C210C74A6D74FB0127CD1F /* FireOpusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873B389C8EFBF5574056A5C /* FireOpusApp.swift */; };
 		A67375B7C5F3AD81AE0DC97A /* FireMaterials.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD766F28800D9393FA129D50 /* FireMaterials.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		411DD278E5C6E0A45E822B38 /* ParticleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleLayer.swift; sourceTree = "<group>"; };
 		5CE47D7D5065C16809B4CF6F /* ScriptedChoreography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptedChoreography.swift; sourceTree = "<group>"; };
 		67CE8A304A3DE89632979E13 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = FireOpus/Shaders; sourceTree = SOURCE_ROOT; };
+		7C321ADB4DF1FB181ADB80ED /* AutoTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoTest.swift; sourceTree = "<group>"; };
 		7C768D0F8BFFC89BBC1CDA59 /* ControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPanel.swift; sourceTree = "<group>"; };
 		973BC622EE226014E0CCF200 /* HeadPlacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadPlacement.swift; sourceTree = "<group>"; };
 		BFFCF6E783AB1B3C7C19FACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				2F94AFF46CC5F41EEF327E11 /* AppModel.swift */,
+				7C321ADB4DF1FB181ADB80ED /* AutoTest.swift */,
 				7C768D0F8BFFC89BBC1CDA59 /* ControlPanel.swift */,
 				0873B389C8EFBF5574056A5C /* FireOpusApp.swift */,
 				973BC622EE226014E0CCF200 /* HeadPlacement.swift */,
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5800C115309C33700333F447 /* AppModel.swift in Sources */,
+				960378DAD559DBBFD8202E5E /* AutoTest.swift in Sources */,
 				2F782F6692A61BC4311A8EA3 /* ControlPanel.swift in Sources */,
 				231625996C3F20031B193EA9 /* FireEffect.swift in Sources */,
 				A67375B7C5F3AD81AE0DC97A /* FireMaterials.swift in Sources */,

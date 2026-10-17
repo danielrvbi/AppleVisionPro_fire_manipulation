@@ -37,6 +37,7 @@ struct ModeStyle {
     var alphaScale: Float
     var smokeLift: Float      // where smoke is born, in spine radii above the spine
     var converge: Float = 0   // horizontal pull of aging flame toward the axis (living flame)
+    var lengthNormalized: Float = 0 // 1 => particle count follows spine length (constant density per metre)
 
     static func style(for mode: FireMode) -> ModeStyle {
         switch mode {
@@ -45,10 +46,10 @@ struct ModeStyle {
                       flowAlong: 0, flowToCentre: 0, lifeScale: 1.0, spreadGrowth: 0, alphaScale: 1.0, smokeLift: 5.0, converge: 9)
         case .flowingRibbon:
             ModeStyle(density: 0.8, buoyancy: 0.8, cohesion: 38, cohesionDecay: 2.6, inherit: 0.55,
-                      flowAlong: 0.0, flowToCentre: 0, lifeScale: 1.0, spreadGrowth: 1.2, alphaScale: 0.55, smokeLift: 2.5)
+                      flowAlong: 0.0, flowToCentre: 0, lifeScale: 1.0, spreadGrowth: 1.2, alphaScale: 0.55, smokeLift: 2.5, lengthNormalized: 1)
         case .twoHandArc:
             ModeStyle(density: 0.8, buoyancy: 0.85, cohesion: 32, cohesionDecay: 2.4, inherit: 0.4,
-                      flowAlong: 0.12, flowToCentre: 1, lifeScale: 1.0, spreadGrowth: 1.0, alphaScale: 0.55, smokeLift: 2.8)
+                      flowAlong: 0.12, flowToCentre: 1, lifeScale: 1.0, spreadGrowth: 1.0, alphaScale: 0.55, smokeLift: 2.8, lengthNormalized: 1)
         }
     }
 
@@ -59,7 +60,8 @@ struct ModeStyle {
                          inherit: m(a.inherit, b.inherit), flowAlong: m(a.flowAlong, b.flowAlong),
                          flowToCentre: m(a.flowToCentre, b.flowToCentre), lifeScale: m(a.lifeScale, b.lifeScale),
                          spreadGrowth: m(a.spreadGrowth, b.spreadGrowth), alphaScale: m(a.alphaScale, b.alphaScale),
-                         smokeLift: m(a.smokeLift, b.smokeLift), converge: m(a.converge, b.converge))
+                         smokeLift: m(a.smokeLift, b.smokeLift), converge: m(a.converge, b.converge),
+                         lengthNormalized: m(a.lengthNormalized, b.lengthNormalized))
     }
 }
 
@@ -178,8 +180,9 @@ final class ArcShape: SpineShape {
             p += n * (0.022 * sin(2 * .pi * 1.5 * s - 1.9 * t) * bell)
             p += depth * (0.035 * sin(.pi * 2 * s + 0.8 * t) * bell)
             let edge = abs(2 * s - 1)
-            let r = 0.03 + 0.013 * edge * edge
-            let heat = 0.78 + 0.22 * edge
+            let palm = smoothstep(0.75, 1.0, edge)      // fire pooled in each palm
+            let r = 0.028 + 0.012 * edge * edge + 0.014 * palm
+            let heat = 0.72 + 0.28 * edge
             return SpinePoint(position: p, radius: r, heat: heat)
         }
     }
