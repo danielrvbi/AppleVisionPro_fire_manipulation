@@ -70,7 +70,7 @@ Launch arguments (Xcode scheme → Arguments, or `simctl launch … <args>`):
 ## How it works
 
 ```
- control points (scripted now, hand tracking later)
+ control points (scripted, or tracked palms on device)
             │
             ▼
    SpineShape (per mode)  ──►  spine: 48 points {position, radius, heat, velocity}
@@ -125,7 +125,9 @@ let fire = try await FireEffect.make()
 content.add(fire.root)                       // place / scale root as you like
 fire.setMode(.twoHandArc)                    // smooth 2.2 s morph between forms
 fire.setControlPoints(primary: leftPalm,     // root-local metres; disables the script and
-                      secondary: rightPalm)  // smooths input with a critically damped spring
+                      secondary: rightPalm,  // smooths input with a critically damped spring
+                      snap: false)           // true: jump there (hand reappeared elsewhere)
+fire.releaseControlPoints()                  // back to the scripted choreography
 fire.update(dt:)                             // once per frame
 fire.ignite() / fire.dissipate() / fire.restart()
 fire.isPaused, fire.quality, fire.userIntensity, fire.showsControlPoints
@@ -139,14 +141,28 @@ Forms are `SpineShape`s (`VFX/FireShapes.swift`):
   separation, travelling wave + depth undulation, fire pooled in each palm.
 
 The scripted motion (`Choreography/ScriptedChoreography.swift`) only produces control points:
-slow, eased Tai-Chi-paced strokes. Real hand tracking needs only to call `setControlPoints` with
-palm positions; nothing in the VFX engine changes.
+slow, eased Tai-Chi-paced strokes.
+
+### Hand tracking (device only)
+
+`App/HandTracking.swift` drives the same seam from real hands:
+* `HandControl` runs an ARKit `HandTrackingProvider` and returns predicted palm points each frame
+  (centre of wrist / middle metacarpal / middle knuckle, lifted 3.5 cm along the palm normal).
+* `HandDriver` picks the hands the mode needs (Living Flame / Ribbon: right palm, else left;
+  Two-Hand Arc: left → primary, right → secondary), converts them into `fire.root` space and calls
+  `setControlPoints`. Hands missing for > 0.25 s fade the fire out; when they reappear it relights
+  there (`snap: true`, no sweep across the room). `releaseControlPoints()` hands back to the script.
+
+The simulator has no hand tracking, so it keeps running the scripted motion (the panel's
+"Hands" toggle is disabled). The autotest covers the driver logic with synthetic palms. Live hand
+tracking needs a Vision Pro: set `DEVELOPMENT_TEAM` in `project.yml`, build to the device, accept
+the hand-tracking prompt, and turn on "Show control points" to see the palm points.
 
 ### Project layout
 
 ```
 project.yml                     XcodeGen spec (bundle id dev.elemental.fire.opus, visionOS 27)
-FireOpus/App/                   SwiftUI app, control panel, immersive view, head placement, autotest
+FireOpus/App/                   SwiftUI app, control panel, immersive view, head placement, hand tracking, autotest
 FireOpus/VFX/                   FireEffect engine, particle layers, shapes, materials, ShaderGraph DSL
 FireOpus/Choreography/          scripted control-point motion
 FireOpus/Shaders/               Metal kernels (shipped as source, compiled at runtime)

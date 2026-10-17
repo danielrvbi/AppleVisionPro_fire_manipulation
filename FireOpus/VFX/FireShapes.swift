@@ -164,8 +164,10 @@ final class ArcShape: SpineShape {
 
     func update(primary a: SIMD3<Float>, secondary b: SIMD3<Float>, time t: Float, dt _: Float) -> [SpinePoint] {
         let ab = b - a
-        let d = max(simd_length(ab), 1e-4)
-        let dir = ab / d
+        let d = simd_length(ab)
+        // Coincident palms (touching hands, or a one-hand point entering this form): any span
+        // direction works, but it must not be zero or the frame below turns into NaN.
+        let dir = d > 1e-3 ? ab / d : SIMD3<Float>(1, 0, 0)
         // Bulge direction: perpendicular to AB inside the frontal plane (continuous under rotation).
         var n = simd_cross(SIMD3<Float>(0, 0, 1), dir)
         if simd_length(n) < 1e-3 { n = worldUp }

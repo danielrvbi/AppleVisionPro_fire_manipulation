@@ -16,6 +16,10 @@ final class AppModel {
     var intensity: Float = 1.0
     var isLit = true
     var showControlPoints = false
+    /// User toggle: let tracked palms drive the fire when hand tracking is available.
+    var handTrackingEnabled = true
+    /// Set once the immersive space has tried to start hand tracking (false in the simulator).
+    var handTrackingAvailable = false
     /// Bumped to request a restart of the effect.
     var restartToken = 0
     var statusMessage: String?

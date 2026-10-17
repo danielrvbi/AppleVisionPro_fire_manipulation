@@ -2,11 +2,14 @@ import RealityKit
 import SwiftUI
 
 /// Mixed immersive space: passthrough plus the fire, ~0.85 m in front of the viewer.
+/// On device the fire follows the palms (hand tracking); otherwise it runs the scripted motion.
 struct ImmersiveFireView: View {
     @Environment(AppModel.self) private var model
     @State private var effect: FireEffect?
     @State private var updateSubscription: EventSubscription?
     @State private var placement = HeadPlacement()
+    @State private var hands = HandControl()
+    @State private var handDriver = HandDriver()
 
     /// Comfortable palm height / distance for a seated or standing viewer.
     static let firePosition = SIMD3<Float>(0, 1.15, -0.85)
@@ -19,14 +22,22 @@ struct ImmersiveFireView: View {
                 content.add(fire.root)
                 apply(to: fire)
                 effect = fire
+                let model = model, hands = hands, handDriver = handDriver
                 updateSubscription = content.subscribe(to: SceneEvents.Update.self) { event in
                     MainActor.assumeIsolated {
-                        fire.update(dt: Float(event.deltaTime))
+                        let dt = Float(event.deltaTime)
+                        if model.handTrackingEnabled && hands.isRunning {
+                            handDriver.step(fire: fire, palms: hands.palms(), userLit: model.isLit, dt: dt)
+                        } else {
+                            handDriver.release(fire: fire, userLit: model.isLit)
+                        }
+                        fire.update(dt: dt)
                     }
                 }
                 model.statusMessage = nil
                 NSLog("FireOpus: effect ready")
                 await placement.place(fire.root)
+                model.handTrackingAvailable = await hands.start()
                 if AutoTest.isEnabled {
                     Task { await AutoTest.run(model: model, effect: fire) }
                 }
@@ -49,6 +60,7 @@ struct ImmersiveFireView: View {
         .onDisappear {
             updateSubscription?.cancel()
             updateSubscription = nil
+            hands.stop()
             effect?.root.removeFromParent()
             effect = nil
         }

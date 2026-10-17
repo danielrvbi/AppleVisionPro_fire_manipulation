@@ -18,7 +18,7 @@ enum FireQuality: String, CaseIterable, Identifiable, Sendable {
 
 /// The reusable fire VFX engine.
 ///
-/// Drive it with one or two control points (scripted now, hand-tracked later):
+/// Drive it with one or two control points (scripted, or palms from `HandDriver`):
 /// ```
 /// let fire = try await FireEffect.make()
 /// content.add(fire.root)
@@ -138,13 +138,44 @@ final class FireEffect {
     }
 
     /// Feed palm positions (root-local metres). Disables the scripted motion.
-    func setControlPoints(primary: SIMD3<Float>, secondary: SIMD3<Float>? = nil) {
+    /// `snap` jumps straight to the new points (no spring sweep) and restarts the current form
+    /// there, e.g. when a hand reappears somewhere else after tracking was lost.
+    func setControlPoints(primary: SIMD3<Float>, secondary: SIMD3<Float>? = nil, snap: Bool = false) {
+        let target = (primary, secondary ?? primary)
+        // Tracking glitches must never reach the spine (NaN would poison the particle counts).
+        func finite(_ v: SIMD3<Float>) -> Bool { v.x.isFinite && v.y.isFinite && v.z.isFinite }
+        guard finite(target.0), finite(target.1) else { return }
         usesScriptedMotion = false
-        external = (primary, secondary ?? primary)
+        external = target
+        if snap {
+            smoothed = (target.0, target.1, .zero, .zero)
+            for m in [mode, previousMode].compactMap({ $0 }) {
+                shapes[m]?.reset(primary: target.0, secondary: target.1)
+            }
+        }
+    }
+
+    /// Hands control back to the built-in choreography.
+    func releaseControlPoints() {
+        usesScriptedMotion = true
+        external = nil
+        smoothed = nil
+        for m in [mode, previousMode].compactMap({ $0 }) {
+            let (a, b) = currentControlPoints(for: m)
+            shapes[m]?.reset(primary: a, secondary: b)
+        }
+    }
+
+    /// Control points currently driving the active form (root-local metres, after smoothing).
+    var controlPoints: (primary: SIMD3<Float>, secondary: SIMD3<Float>) {
+        let (a, b) = currentControlPoints(for: mode)
+        return (a, b)
     }
 
     func ignite() { targetIntensity = 1 }
     func dissipate() { targetIntensity = 0 }
+    /// False while fading out (or out) after `dissipate()`.
+    var isIgnited: Bool { targetIntensity > 0 }
 
     func restart() {
         layers.values.forEach { $0.reset() }
@@ -180,6 +211,7 @@ final class FireEffect {
         #endif
 
         // 1. Control points -> spine (blended across a mode transition)
+        stepSmoothing(dt: stepDt)
         if !isPaused || lastSpine.isEmpty {
             let w = smoothstep(0, 1, transition)
             var spine = spineFor(mode, dt: stepDt)
@@ -250,21 +282,23 @@ final class FireEffect {
         return (out.primary, out.secondary)
     }
 
-    private func spineFor(_ m: FireMode, dt: Float) -> [SpinePoint] {
-        var (a, b) = currentControlPoints(for: m)
-        if !usesScriptedMotion, let e = external {
-            // critically damped spring toward tracked targets
-            var s = smoothed ?? (e.0, e.1, .zero, .zero)
-            let omega: Float = 14
-            if dt > 0 {
-                s.va += (omega * omega * (e.0 - s.a) - 2 * omega * s.va) * dt
-                s.vb += (omega * omega * (e.1 - s.b) - 2 * omega * s.vb) * dt
-                s.a += s.va * dt
-                s.b += s.vb * dt
-            }
-            smoothed = s
-            (a, b) = (s.a, s.b)
+    /// Critically damped spring toward tracked targets. Stepped once per frame (not per form, so a
+    /// mode transition, which builds two spines, doesn't double its speed).
+    private func stepSmoothing(dt: Float) {
+        guard !usesScriptedMotion, let e = external else { return }
+        var s = smoothed ?? (e.0, e.1, .zero, .zero)
+        let omega: Float = 14
+        if dt > 0 {
+            s.va += (omega * omega * (e.0 - s.a) - 2 * omega * s.va) * dt
+            s.vb += (omega * omega * (e.1 - s.b) - 2 * omega * s.vb) * dt
+            s.a += s.va * dt
+            s.b += s.vb * dt
         }
+        smoothed = s
+    }
+
+    private func spineFor(_ m: FireMode, dt: Float) -> [SpinePoint] {
+        let (a, b) = currentControlPoints(for: m)
         return shapes[m]!.update(primary: a, secondary: b, time: scriptTime, dt: dt)
     }
 

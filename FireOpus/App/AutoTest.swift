@@ -3,7 +3,7 @@ import RealityKit
 
 /// Scripted runtime test, enabled with the launch argument `-fireAutoTest YES`.
 /// Drives the same AppModel the control panel uses through every mode transition, pause/resume,
-/// dissipate/ignite, restart and quality change, logging entity counts and memory footprint so
+/// dissipate/ignite, restart, quality change and synthetic hand input, logging entity counts and memory footprint so
 /// leaks or stalls show up in the log (`FireOpus: autotest ...`).
 @MainActor
 enum AutoTest {
@@ -43,9 +43,59 @@ enum AutoTest {
             log("quality low")
             model.quality = .high
         }
+        let handsOK = model.handTrackingAvailable ? true : await handInput(model: model, effect: effect, log: log)
         model.mode = .livingFlame
         await wait(4)
-        log("PASS")
+        log(handsOK ? "PASS" : "FAIL (hand input)")
+    }
+
+    /// Drives `HandDriver` with synthetic palms (simulator has no hand tracking): follow, loss
+    /// fade, snap on reappear, two-hand arc, and release back to the script.
+    private static func handInput(model: AppModel, effect: FireEffect, log: (String) -> Void) async -> Bool {
+        let driver = HandDriver()
+        var ok = true
+        func world(_ p: SIMD3<Float>) -> SIMD3<Float> { effect.root.convert(position: p, to: nil) }
+        func feed(_ seconds: Float, _ palms: (Float) -> Palms) async {
+            var t: Float = 0
+            while t < seconds {
+                driver.step(fire: effect, palms: palms(t), userLit: model.isLit, dt: 1 / 60)
+                try? await Task.sleep(for: .milliseconds(16))
+                t += 1 / 60
+            }
+        }
+        func check(_ name: String, _ pass: Bool) {
+            ok = ok && pass
+            log("hands \(name): \(pass ? "ok" : "FAILED")")
+        }
+
+        model.mode = .livingFlame
+        try? await Task.sleep(for: .seconds(3))
+        let p0 = SIMD3<Float>(0, -0.07, 0)
+        await feed(3) { t in Palms(right: world(p0 + SIMD3(0.03 * sin(t), 0.01 * sin(1.7 * t), 0))) }
+        check("follows palm", simd_distance(effect.controlPoints.primary, p0) < 0.05 && !effect.usesScriptedMotion)
+
+        await feed(1.2) { _ in Palms() }
+        check("fades when lost", !effect.isIgnited)
+
+        let p1 = p0 + SIMD3<Float>(0.3, 0.1, 0)
+        await feed(0.1) { _ in Palms(left: world(p1)) }
+        check("snaps on reappear", simd_distance(effect.controlPoints.primary, p1) < 0.01 && effect.isIgnited)
+        await feed(3) { _ in Palms(left: world(p1)) }
+
+        model.mode = .twoHandArc
+        await feed(8) { t in
+            let d = 0.15 + 0.3 * (0.5 - 0.5 * cos(t * 0.8))
+            return Palms(left: world(SIMD3(-d / 2, -0.09, 0)), right: world(SIMD3(d / 2, -0.09, 0)))
+        }
+        check("arc spans palms", simd_distance(effect.controlPoints.primary, effect.controlPoints.secondary) > 0.1)
+        await feed(1) { _ in Palms(right: world(SIMD3(0.2, -0.09, 0))) }
+        check("arc fades with one hand", !effect.isIgnited)
+        await feed(2) { _ in Palms(left: world(SIMD3(-0.2, -0.09, 0)), right: world(SIMD3(0.2, -0.09, 0))) }
+        check("arc relights with both", effect.isIgnited)
+
+        driver.release(fire: effect, userLit: model.isLit)
+        check("released to script", effect.usesScriptedMotion && effect.isIgnited)
+        return ok
     }
 
     private static func memoryFootprintMB() -> Double {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Minimal floating test harness: mode, play/pause, restart, quality, scale, intensity.
+/// Minimal floating test harness: mode, play/pause, restart, quality, scale, intensity, hands.
 struct ControlPanel: View {
     @Environment(AppModel.self) private var model
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace
@@ -42,7 +42,13 @@ struct ControlPanel: View {
                 }
                 GridRow {
                     Text("Hands")
-                    Toggle("Show simulated control points", isOn: $model.showControlPoints)
+                    Toggle(model.handTrackingAvailable ? "Fire follows your palms" : "Hand tracking unavailable (simulator or no permission)",
+                           isOn: $model.handTrackingEnabled)
+                        .disabled(!model.handTrackingAvailable)
+                }
+                GridRow {
+                    Text("Markers")
+                    Toggle("Show control points", isOn: $model.showControlPoints)
                 }
             }
 

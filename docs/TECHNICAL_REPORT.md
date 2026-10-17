@@ -91,9 +91,15 @@ cloud → smoke opacity reduced.
   reconstruction, which is out of scope).
 * Glow is a soft halo layer, not a post-process bloom (RealityKit offers no custom post-FX).
 
-## Next step (hand tracking)
+## Hand tracking
 
-Add a `HandTrackingProvider`, compute palm centres (e.g. middle-finger metacarpal + palm
-normal offset), convert them to `fire.root` local space and call
-`fire.setControlPoints(primary:secondary:)` each frame. Choose the mode from hand pose or keep
-the selector. The engine already smooths noisy input with a critically damped spring.
+Implemented in `FireOpus/App/HandTracking.swift`. `HandControl` runs a `HandTrackingProvider`
+and samples predicted anchors with `handAnchors(at:)` once per frame. Palm point = mean of wrist,
+middle-finger metacarpal and knuckle, offset 3.5 cm along the palm normal
+(`cross(indexKnuckle - wrist, littleKnuckle - wrist)`, mirrored for the left hand).
+`HandDriver` converts to `fire.root` space and calls `fire.setControlPoints(primary:secondary:snap:)`;
+the engine's critically damped spring (now stepped once per frame, not once per form during a
+transition) smooths the input. Missing hands fade the fire after 0.25 s; on reappearance it
+relights in place (`snap`). With no hand tracking (simulator, permission denied, toggle off) the
+scripted choreography runs. The mode is still chosen in the panel; choosing it from hand pose is
+the next experiment.
