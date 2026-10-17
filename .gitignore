@@ -6,3 +6,23 @@ DerivedData.nosync/
 *.xcodeproj/project.xcworkspace/xcuserdata/
 references/
 .claude
+
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+*.p12
+*.pfx
+*.p8
+*.mobileprovision
+
+# Xcode / Swift generated files
+xcuserdata/
+*.xcuserstate
+.build/
+.swiftpm/
+*.xcarchive
+*.ipa
+*.dSYM
+*.dSYM.zip
+*.xcresult
