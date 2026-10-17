@@ -15,8 +15,11 @@ final class HandControl {
     private let session = ARKitSession()
     private let hands = HandTrackingProvider()
     private(set) var isRunning = false
-    /// How far the control point sits off the palm, along the palm normal (metres).
-    var palmLift: Float = 0.035
+    /// How far the control point sits off the palm, along the palm normal (metres). Clears the
+    /// flame's base radius so it hovers instead of sitting in the hand.
+    var palmLift: Float = 0.06
+    /// Extra straight-up offset (metres), so the fire stays above a tilted or sideways hand.
+    var hoverHeight: Float = 0.05
 
     func start() async -> Bool {
         guard HandTrackingProvider.isSupported else {
@@ -51,7 +54,7 @@ final class HandControl {
         return Palms(left: left.flatMap(palm), right: right.flatMap(palm))
     }
 
-    /// Palm centre (wrist / middle metacarpal / middle knuckle), lifted along the palm normal.
+    /// Palm centre (wrist / middle metacarpal / middle knuckle), lifted along the palm normal and up.
     private func palm(_ anchor: HandAnchor) -> SIMD3<Float>? {
         guard anchor.isTracked, let skeleton = anchor.handSkeleton else { return nil }
         func joint(_ name: HandSkeleton.JointName) -> SIMD3<Float>? {
@@ -66,9 +69,10 @@ final class HandControl {
         let centre = (wrist + metacarpal + knuckle) / 3
         // Right hand: index × little (from the wrist) points out of the palm; mirrored for the left.
         var normal = simd_cross(index - wrist, little - wrist)
-        guard simd_length(normal) > 1e-6 else { return centre }
+        let up = SIMD3<Float>(0, hoverHeight, 0)
+        guard simd_length(normal) > 1e-6 else { return centre + up }
         normal = simd_normalize(normal) * (anchor.chirality == .left ? -1 : 1)
-        return centre + normal * palmLift
+        return centre + normal * palmLift + up
     }
 }
 
