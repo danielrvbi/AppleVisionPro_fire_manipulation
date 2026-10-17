@@ -1,0 +1,387 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		231625996C3F20031B193EA9 /* FireEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208AE3141C30D26789579427 /* FireEffect.swift */; };
+		2E2C2096E0BFA0E01463BF34 /* FireShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF28064E718C04A2F1DBC6BD /* FireShapes.swift */; };
+		2F782F6692A61BC4311A8EA3 /* ControlPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C768D0F8BFFC89BBC1CDA59 /* ControlPanel.swift */; };
+		3B08A9DA398A0DD70517A2CC /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 67CE8A304A3DE89632979E13 /* Shaders */; };
+		53BFA2955559FB904F5CF497 /* ParticleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411DD278E5C6E0A45E822B38 /* ParticleLayer.swift */; };
+		5800C115309C33700333F447 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F94AFF46CC5F41EEF327E11 /* AppModel.swift */; };
+		6086FC5E444BBFFCE56B3628 /* HeadPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973BC622EE226014E0CCF200 /* HeadPlacement.swift */; };
+		71E01A61CAD3705580C2BA5A /* ScriptedChoreography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE47D7D5065C16809B4CF6F /* ScriptedChoreography.swift */; };
+		7E245B49883FDBE0DEF4E54A /* ShaderGraphBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDB227212B8AEB4510B893A /* ShaderGraphBuilder.swift */; };
+		8D82D16470D875CA3F5737A7 /* ImmersiveFireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EFFDFDCDD469FDF91F679 /* ImmersiveFireView.swift */; };
+		A5C210C74A6D74FB0127CD1F /* FireOpusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0873B389C8EFBF5574056A5C /* FireOpusApp.swift */; };
+		A67375B7C5F3AD81AE0DC97A /* FireMaterials.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD766F28800D9393FA129D50 /* FireMaterials.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0873B389C8EFBF5574056A5C /* FireOpusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireOpusApp.swift; sourceTree = "<group>"; };
+		208AE3141C30D26789579427 /* FireEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireEffect.swift; sourceTree = "<group>"; };
+		2F94AFF46CC5F41EEF327E11 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		411DD278E5C6E0A45E822B38 /* ParticleLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleLayer.swift; sourceTree = "<group>"; };
+		5CE47D7D5065C16809B4CF6F /* ScriptedChoreography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptedChoreography.swift; sourceTree = "<group>"; };
+		67CE8A304A3DE89632979E13 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = FireOpus/Shaders; sourceTree = SOURCE_ROOT; };
+		7C768D0F8BFFC89BBC1CDA59 /* ControlPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPanel.swift; sourceTree = "<group>"; };
+		973BC622EE226014E0CCF200 /* HeadPlacement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadPlacement.swift; sourceTree = "<group>"; };
+		BFFCF6E783AB1B3C7C19FACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CF28064E718C04A2F1DBC6BD /* FireShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireShapes.swift; sourceTree = "<group>"; };
+		D23EFFDFDCDD469FDF91F679 /* ImmersiveFireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveFireView.swift; sourceTree = "<group>"; };
+		D8BBD45D6DF041B616A8CC63 /* FireOpus.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = FireOpus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCDB227212B8AEB4510B893A /* ShaderGraphBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderGraphBuilder.swift; sourceTree = "<group>"; };
+		FD766F28800D9393FA129D50 /* FireMaterials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireMaterials.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		103667C438F15CC3E084B4C3 /* VFX */ = {
+			isa = PBXGroup;
+			children = (
+				208AE3141C30D26789579427 /* FireEffect.swift */,
+				FD766F28800D9393FA129D50 /* FireMaterials.swift */,
+				CF28064E718C04A2F1DBC6BD /* FireShapes.swift */,
+				411DD278E5C6E0A45E822B38 /* ParticleLayer.swift */,
+				FCDB227212B8AEB4510B893A /* ShaderGraphBuilder.swift */,
+			);
+			path = VFX;
+			sourceTree = "<group>";
+		};
+		1D96C5471DB4D13A066D60F2 = {
+			isa = PBXGroup;
+			children = (
+				D5897E3DD06A02CEC341D97C /* FireOpus */,
+				86D4964C1191A880F1C5555A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		86D4964C1191A880F1C5555A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D8BBD45D6DF041B616A8CC63 /* FireOpus.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		90A8A94486F525E06B75D643 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BFFCF6E783AB1B3C7C19FACF /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A64D385C02F6D1F269ACF442 /* Choreography */ = {
+			isa = PBXGroup;
+			children = (
+				5CE47D7D5065C16809B4CF6F /* ScriptedChoreography.swift */,
+			);
+			path = Choreography;
+			sourceTree = "<group>";
+		};
+		D5897E3DD06A02CEC341D97C /* FireOpus */ = {
+			isa = PBXGroup;
+			children = (
+				67CE8A304A3DE89632979E13 /* Shaders */,
+				E21838FA22797F62A2F8C6C0 /* App */,
+				A64D385C02F6D1F269ACF442 /* Choreography */,
+				90A8A94486F525E06B75D643 /* Resources */,
+				103667C438F15CC3E084B4C3 /* VFX */,
+			);
+			path = FireOpus;
+			sourceTree = "<group>";
+		};
+		E21838FA22797F62A2F8C6C0 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2F94AFF46CC5F41EEF327E11 /* AppModel.swift */,
+				7C768D0F8BFFC89BBC1CDA59 /* ControlPanel.swift */,
+				0873B389C8EFBF5574056A5C /* FireOpusApp.swift */,
+				973BC622EE226014E0CCF200 /* HeadPlacement.swift */,
+				D23EFFDFDCDD469FDF91F679 /* ImmersiveFireView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		030A4AB7C60EA35CF96CFF30 /* FireOpus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0EB21CD1EE6FCF0E3CCDED9C /* Build configuration list for PBXNativeTarget "FireOpus" */;
+			buildPhases = (
+				64207CD335EB47797837B310 /* Sources */,
+				DBC95940545E15CE3C0E8852 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FireOpus;
+			packageProductDependencies = (
+			);
+			productName = FireOpus;
+			productReference = D8BBD45D6DF041B616A8CC63 /* FireOpus.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6329DE98CC4A21CC577AACA9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					030A4AB7C60EA35CF96CFF30 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 7FF8C094BEB7AE6FE55439D2 /* Build configuration list for PBXProject "FireOpus" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 1D96C5471DB4D13A066D60F2;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 86D4964C1191A880F1C5555A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				030A4AB7C60EA35CF96CFF30 /* FireOpus */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DBC95940545E15CE3C0E8852 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B08A9DA398A0DD70517A2CC /* Shaders in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64207CD335EB47797837B310 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5800C115309C33700333F447 /* AppModel.swift in Sources */,
+				2F782F6692A61BC4311A8EA3 /* ControlPanel.swift in Sources */,
+				231625996C3F20031B193EA9 /* FireEffect.swift in Sources */,
+				A67375B7C5F3AD81AE0DC97A /* FireMaterials.swift in Sources */,
+				A5C210C74A6D74FB0127CD1F /* FireOpusApp.swift in Sources */,
+				2E2C2096E0BFA0E01463BF34 /* FireShapes.swift in Sources */,
+				6086FC5E444BBFFCE56B3628 /* HeadPlacement.swift in Sources */,
+				8D82D16470D875CA3F5737A7 /* ImmersiveFireView.swift in Sources */,
+				53BFA2955559FB904F5CF497 /* ParticleLayer.swift in Sources */,
+				71E01A61CAD3705580C2BA5A /* ScriptedChoreography.swift in Sources */,
+				7E245B49883FDBE0DEF4E54A /* ShaderGraphBuilder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		51F2824B11580AD071F15A86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FireOpus/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.elemental.fire.opus;
+				PRODUCT_NAME = FireOpus;
+				SDKROOT = xros;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				TARGETED_DEVICE_FAMILY = 7;
+			};
+			name = Debug;
+		};
+		8914B9EBAAD7A69785C1E1D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
+		B746A7FFEAEE2FBEE8EEB1BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		FC5283761D5C9F984F4CDD8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FireOpus/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.elemental.fire.opus;
+				PRODUCT_NAME = FireOpus;
+				SDKROOT = xros;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				TARGETED_DEVICE_FAMILY = 7;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0EB21CD1EE6FCF0E3CCDED9C /* Build configuration list for PBXNativeTarget "FireOpus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51F2824B11580AD071F15A86 /* Debug */,
+				FC5283761D5C9F984F4CDD8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7FF8C094BEB7AE6FE55439D2 /* Build configuration list for PBXProject "FireOpus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B746A7FFEAEE2FBEE8EEB1BC /* Debug */,
+				8914B9EBAAD7A69785C1E1D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6329DE98CC4A21CC577AACA9 /* Project object */;
+}

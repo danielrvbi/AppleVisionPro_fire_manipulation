@@ -1,0 +1,36 @@
+name: FireOpus
+options:
+  bundleIdPrefix: dev.elemental.fire
+  deploymentTarget:
+    visionOS: "27.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+targets:
+  FireOpus:
+    type: application
+    platform: visionOS
+    sources:
+      - path: FireOpus
+        excludes:
+          - "Shaders"
+          - "Shaders/**"
+      # Metal kernels ship as a folder reference (copied verbatim) and are compiled at runtime
+      # with MTLDevice.makeLibrary(source:), so building needs no offline Metal Toolchain.
+      - path: FireOpus/Shaders
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.elemental.fire.opus
+        PRODUCT_NAME: FireOpus
+        INFOPLIST_FILE: FireOpus/Resources/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_STRICT_CONCURRENCY: complete
+        MTL_FAST_MATH: YES
+        TARGETED_DEVICE_FAMILY: "7"

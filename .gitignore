@@ -1,0 +1,7 @@
+.DS_Store
+build/
+DerivedData/
+DerivedData.nosync/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+references/
