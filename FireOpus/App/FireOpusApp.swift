@@ -15,6 +15,7 @@ struct FireOpusApp: App {
         ImmersiveSpace(id: AppModel.immersiveSpaceID) {
             ImmersiveFireView()
                 .environment(model)
+                .persistentSystemOverlays(.hidden)
         }
         .immersionStyle(selection: .constant(.mixed), in: .mixed)
     }
