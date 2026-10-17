@@ -37,7 +37,7 @@
 		BFFCF6E783AB1B3C7C19FACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CF28064E718C04A2F1DBC6BD /* FireShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireShapes.swift; sourceTree = "<group>"; };
 		D23EFFDFDCDD469FDF91F679 /* ImmersiveFireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveFireView.swift; sourceTree = "<group>"; };
-		D8BBD45D6DF041B616A8CC63 /* FireOpus.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = FireOpus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8BBD45D6DF041B616A8CC63 /* FireOpus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireOpus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCDB227212B8AEB4510B893A /* ShaderGraphBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderGraphBuilder.swift; sourceTree = "<group>"; };
 		FD766F28800D9393FA129D50 /* FireMaterials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireMaterials.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,7 +144,6 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					030A4AB7C60EA35CF96CFF30 = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -208,6 +207,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RRH5AM5544;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = FireOpus/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -352,6 +352,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RRH5AM5544;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = FireOpus/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

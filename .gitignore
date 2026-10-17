@@ -5,3 +5,4 @@ DerivedData.nosync/
 *.xcodeproj/xcuserdata/
 *.xcodeproj/project.xcworkspace/xcuserdata/
 references/
+.claude
